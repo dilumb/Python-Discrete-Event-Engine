@@ -1,6 +1,6 @@
 '''
 Created on Jan 5, 2011
-Modified on Feb 9, 2012
+Modified on Sep 7, 2018
 @author:  = Dilum Bandara
 @version:  = 0.2
 @contact:  = dilumb@engr.colostate.edu
@@ -70,7 +70,7 @@ class DES:
             end = len(self._eventList) - 1
             idx = -1
             while True:
-                mid = (start + end)/2
+                mid = int((start + end)/2)
                 if startTime > self._eventList[mid].startTime: start = mid + 1
                 else: end = mid -1
                 if start > end:
