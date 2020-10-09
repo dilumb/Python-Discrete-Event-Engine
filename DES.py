@@ -1,12 +1,12 @@
 '''
 Created on Jan 5, 2011
-Modified on Sep 7, 2018
+Modified on Oct 9, 2020
 @author:  = Dilum Bandara
 @version:  = 0.2
-@contact:  = dilumb@engr.colostate.edu
+@contact:  = dilum.bandara@ieee.org
 @license: Apache License v2.0
 
-   Copyright 2011-2012 H. M. N. Dilum Bandara
+   Copyright 2011-2020 H. M. N. Dilum Bandara
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -25,12 +25,12 @@ class Event:
     '''
     Event class. Track event information
     '''
-    def __init__(self, startTime, eventType, NID = -1, data = None):
+    def __init__(self, startTime, eventType, data = None, NID = -1, ):
         '''
         @parm startTime: Start time of event
         @param eventType: Type of event
-        @param NID: Node ID responsible for event 
         @param data: Data associated with event
+        @param NID: Node/customer/server ID responsible for event 
         '''
         self.eventType = eventType 
         self.startTime = startTime
@@ -51,17 +51,17 @@ class DES:
         self._eventList = []
 
 
-    def addEvent(self, startTime, eventType, nid = -1, data = None, sort = True):
+    def addEvent(self, startTime, eventType, data = None, nid = -1, sort = True):
         '''
         Add an event to waiting event list
         @param startTime: Event start time
         @param eventType: Type of event
-        @param nid: Node/customer/server responsible for event
         @param data: Any data associated with event
+        @param nid: Node/customer/server responsible for event
         @param sort: Do events need to be sorted (if they are already sorted set
-        to false to speed up) 
+        to false to speed up). Useful for adding initial events 
         '''
-        newEvent = Event(startTime, eventType, nid, data)
+        newEvent = Event(startTime, eventType, data, nid)
         if sort == True: #Sort according to time
             if len(self._eventList) == 0: 
                 self._eventList.append(newEvent)
@@ -92,7 +92,7 @@ class DES:
         Remove given event from event list 
         @param startTime: Event start time
         @param eventType: Event type
-        @param nid: Node responsible for event
+        @param nid: Node/customer/server responsible for event
         '''
         assert(len(self._eventList) != 0), 'Event list already empty.'
         for i in range(len(self._eventList)):  #Search for proper position
@@ -113,4 +113,5 @@ class DES:
         if len(self._eventList) > 0:
             self.now = self._eventList[0].startTime
             return self._eventList.pop(0)
-        else: return None
+        else: 
+            return None
